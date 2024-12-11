@@ -2,41 +2,41 @@ using UnityEngine;
 
 public class PlayerMovement2 : MonoBehaviour
 {
-    public float moveSpeed = 5f;     // Rychlost pohybu na ose X
-    public float jumpForce = 10f;    // Síla skoku na ose Y
+    public float moveSpeed = 5f;     
+    public float jumpForce = 10f;    
 
-    private Rigidbody2D rb;          // Reference na Rigidbody2D
-    private float startY;            // Výchozí pozice na ose Y
+    private Rigidbody2D rb;          
+    private float startY;            
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>(); // Najdeme Rigidbody2D
-        startY = transform.position.y;    // Uložíme počáteční pozici na ose Y
+        rb = GetComponent<Rigidbody2D>(); 
+        startY = transform.position.y;    /
     }
 
     void Update()
     {
         // Pohyb na ose X
         float moveX = 0f;
-        if (Input.GetKey(KeyCode.LeftArrow)) moveX = -1f; // Dozadu
-        if (Input.GetKey(KeyCode.RightArrow)) moveX = 1f; // Dopředu
+        if (Input.GetKey(KeyCode.LeftArrow)) moveX = -1f; 
+        if (Input.GetKey(KeyCode.RightArrow)) moveX = 1f; 
 
-        rb.linearVelocity = new Vector2(moveX * moveSpeed, rb.linearVelocity.y); // Používáme velocity místo linearVelocity
-        Debug.Log("Player 2 X Movement: " + moveX);  // Debug: Zobrazí hodnotu pohybu X
+        rb.linearVelocity = new Vector2(moveX * moveSpeed, rb.linearVelocity.y); 
+        Debug.Log("Player 2 X Movement: " + moveX);  
 
         // Skok
         if (Input.GetKeyDown(KeyCode.UpArrow) && Mathf.Abs(rb.linearVelocity.y) < 0.01f)
         {
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
-            Debug.Log("Player 2 Jumped"); // Debug: Zobrazí, že hráč skočil
+            Debug.Log("Player 2 Jumped"); 
         }
 
         // Návrat na osu X
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); // Zastavíme pohyb na Y
-            transform.position = new Vector2(transform.position.x, startY); // Reset pozice Y
-            Debug.Log("Player 2 Reset Y Position"); // Debug: Zobrazí, že pozice Y byla resetována
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f); 
+            transform.position = new Vector2(transform.position.x, startY); 
+            Debug.Log("Player 2 Reset Y Position"); 
         }
     }
 }
